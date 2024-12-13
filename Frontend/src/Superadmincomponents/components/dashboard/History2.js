@@ -107,7 +107,7 @@ const History2 = () => {
     event.preventDefault();
   
     axios
-      .post("http://localhost:8080/history2", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/history2`, values)
       .then((res) => {
         if (res.data === "Error") {
           alert("Error while submitting data. Please try again");

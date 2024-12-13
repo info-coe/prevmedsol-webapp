@@ -35,7 +35,7 @@ const Doctormessage = () => {
     console.log(values);
     event.preventDefault();
    
-    axios.post("http://localhost:8080/patientsentdata", values)
+    axios.post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patientsentdata`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while sending mail. Please try again filling all the fields');

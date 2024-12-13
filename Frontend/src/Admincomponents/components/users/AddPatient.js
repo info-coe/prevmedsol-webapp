@@ -48,7 +48,7 @@ const Addpatient = () => {
     console.log(values);
     event.preventDefault();
      axios
-      .post("http://localhost:8080/addpatient", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/addpatient`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while adding patient. Please try again filling all the fields');

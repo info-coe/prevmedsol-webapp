@@ -12,7 +12,7 @@ function DashboardPage() {
 
   useEffect(()=>{
     axios
-    .get("http://localhost:8080/dashboardPage")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/dashboardPage`)
     .then((res) => {
       setDoctors(res.data[0][0].rowcount)
       setPatients(res.data[1][0].rowcount)

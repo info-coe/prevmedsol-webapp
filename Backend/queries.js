@@ -646,6 +646,65 @@ const createSpecializationsTableQuery = `
     UNIQUE INDEX specializations_id_UNIQUE (specializations_id ASC));
 `
 
+const adminLoginQuery = "SELECT * FROM admin WHERE `email` = ? AND `password` = ?";
+const getAdminQuery = "SELECT * FROM admin";
+const updateAdminQuery = "UPDATE admin SET ? WHERE email = ?";
+const doctorLoginQuery = "SELECT * FROM doctors WHERE `email` = ? AND `password` = ?";
+const insertDoctorQuery = "INSERT INTO doctors (`firstname`,`lastname`,`gender`,`phone`,`email`,`password`,`hospital`,`specialization`,`address`,`country`,`state`,`city` ) VALUES (?)";
+const getDoctorQuery = "SELECT * FROM doctors";
+const updateDoctorQuery = "UPDATE doctors SET ? WHERE email = ?";
+const deleteDoctorQuery = "DELETE FROM doctors WHERE email = ?";
+const patientLoginQuery = "SELECT * FROM patients WHERE `email` = ? AND `password` = ?";
+const insertPatientQuery = "INSERT INTO patients (`firstname`,`middlename`,`lastname`,`email`,`password`,`phone`,`gender`,`dob`,`bloodgroup`,`country`,`state`,`city`,`street1`,`street2`,`zipcode` ) VALUES (?)";
+const addPatientQuery = "INSERT INTO patients (`firstname`,`lastname`,`gender`,`bloodgroup`,`dob`,`phone`,`email`,`password`,`address`,`state`,`city`,`status` ) VALUES (?)";
+const getPatientQuery = "SELECT * FROM patients";
+const patientForgotPasswordQuery = "UPDATE patients SET password = ? WHERE email = ?";
+const patientChangePasswordQuery = "UPDATE patients SET ? WHERE email = ?";
+const deletePatientQuery = "DELETE FROM patients WHERE email = ?";
+const labagentLoginQuery = "SELECT * FROM labagents WHERE `email` = ? AND `password` = ?";
+const insertLabagentQuery = "INSERT INTO labagents (`firstname`,`lastname`,`gender`,`phone`,`email`,`password`,`labname`,`address`,`state`,`city` ) VALUES (?)";
+const getLabagentQuery = "SELECT * FROM labagents";
+const updateLabagentQuery = "UPDATE labagents SET ? WHERE email = ?";
+const deleteLabagentQuery = "DELETE FROM labagents WHERE email = ?";
+const addCenterQuery = "INSERT INTO centers (`centername`,`phone`,`email`,`password`,`fromtiming`,`totiming`,`address`,`state`,`city` ) VALUES (?)";
+const getCenterQuery = "SELECT * FROM centers";
+const updateCenterQuery = "UPDATE centers SET ? WHERE email = ?";
+const deleteCenterQuery = "DELETE FROM centers WHERE email = ?";
+const addLabQuery = "INSERT INTO labs (`labname`,`address`,`state`,`city`,`fromtiming`,`totiming` ) VALUES (?)";
+const getLabQuery = "SELECT * FROM labs";
+const updateLabQuery = "UPDATE labs SET ? WHERE email = ?";
+const addAppointmentQuery = "INSERT INTO appointments (`patient`,`appointment`,`center`,`date`,`time` ) VALUES (?)";
+const addAppointmentWithPatient = "SELECT  firstname, lastname from patients";
+const addAppointmentWithCenter = "select centername, fromtiming, totiming from centers";
+const addAppointmentWithLab = "SELECT labname, fromtiming, totiming from labs";
+const getAppointmentQuery = "SELECT * FROM appointments";
+const addSpecializationQuery = "INSERT INTO specializations (`specialization`,`specialization_description`) values (?)";
+const getSpecializationQuery = "SELECT * FROM specializations";
+const getCountForDashboardQuery = "select count(*) as rowcount  from ";
+const addPackageQuery = "INSERT INTO packages (`packagename`,`packagedescription`,`amount`,`imageurl`,`service1`,`service2`,`service3`,`service4`,`service5`,`service6`,`service7`,`service8`,`service9`,`service10` ) VALUES (?)";
+const getPackageQuery = "SELECT * FROM packages";
+const updatePackageQuery = "UPDATE packages SET ? WHERE packagename = ?";
+const deletePackageQuery = "DELETE FROM packages WHERE packagename = ?";
+const addMailboxQuery = "INSERT INTO sentmailbox (`fromemail`,`toemail`,`subject`,`message`,`date`,`time`,`status`) VALUES (?)";
+const getMailboxQuery = "SELECT * FROM sentmailbox";
+const updateMailboxQuery = "UPDATE sentmailbox SET status = ? WHERE toemail = ?";
+const superAdminLoginQuery = "SELECT * FROM superadmin WHERE `password` = ?";
+const getSuperAdminQuery = "SELECT * FROM superadmin";
+const updateSuperAdminQuery = "UPDATE superadmin SET ? WHERE email = ?";
+const addHistory1Query = "insert into emrhistory1 (`history1_id`, `complaint_date`, `present_illness`, `onset`, `duration`, `frequency`, `location`, `quality`, `severity`, `aggravating_factors`, `alleviating_factors`, `associated_symptoms`) values (?)";
+const addHistory2Query = "insert into emrhistory2 (`history2_id`, `diabetes`, `heartdisease`, `heartdisease_desc`, `hypertension`, `stroke`, `asthama`, `asthama_desc`, `cancer`, `arthritis`, `tuberculosis`, `epilepsy`, `epilepsy_desc`, `operation_date`, `operation_type`, `operation_reason`, `operation_outcome`, `operation_complication`, `polio`, `measles`, `mumps`, `rubella`, `whooping_cough`, `chicken_pox`, `rheumatic_fever`, `bcg`, `mmr`, `polio_immune`, `hepatitis`, `influenza`, `pneumonia`, `varicella`, `motor_vehicle_accidents`, `motor_vehicle_accidents_desc`, `blood_group`, `blood_transfusions_received`, `blood_transfusions_given`, `hospitalizations`, `hospitalized_date`, `hospitalized_reason`, `hospitalized_outcome`, `parents_living`, `cause_of_death`, `siblings`, `medical_issues_with_siblings`, `no_of_children`, `medical_issues_with_children`, `spouse`, `hemoccults`, `blood_pressure`, `xray_chest`, `hepotitis_b`, `cholestorol_screen`, `basic_metabolic_panel`, `foot_exam`, `tuberculin_skin_test`, `random_blood_sugar`, `vision_check`, `hepatitis_c`, `pap_smear`, `liver_function_tests`, `hepotitis_a`, `urine_analysis`, `CBC_with_differential`, `diabetics_urine`, `hiv`, `living_accommodations`, `birthplace`, `education`, `hobbies`, `religion`, `persons_at_home`, `employment`, `diet`, `marriage_divorce`, `exercise`, `secondary_smoking`, `history_of_secondary_smoking`, `tobacco`, `tobacco_no_of_years`, `drugs`, `drugs_no_of_years`, `alcohol`, `alcohol_no_of_years`) values (?)";
+const addMedicationQuery = "insert into emrmedication (`medications_id`, `medications`, `medicine_type`, `medicine_name`, `dose`, `frequency`, `duration`, `reason_for_taking`, `compliance`, `takes_as_prescribed`, `allergies`, `allergic_reaction`, `allergy_type`) values (?)";
+const addAssessmentQuery = "INSERT INTO assessments (`assement_id`,`assessment`, `plans`) VALUES (?)";
+const addPhysicalExam1Query = "INSERT INTO physicalexam1 (`physical1_id`,`Blood Pressure`,`Pulse`,`Respirations`,`Temperature`,`State of Health`,`Stature`,`Dress`,`Hygiene`,`Skin scars`,`Rashes`,`Bruises`,`Tattoos`,`Hair Consistency`,`Nail Pitting`,`Pupil size`,`Shape`,`Reactivity`,`Conjunctival`,`Scelral icterus`,`Fundal Papiledema`,`Hemorrhage`,`Lids`,`Extraocular Movements`,`Visual Fields`,`Acuity`,`Shape - Symmetry`,`Tenderness`,`Discharge`,`External Canal`,`Tympanic Membrone Inflammation`,`Gross Auditory Acuity`,`Symmetry`,`Nose-Tenderness`,`Nose-Discharge`,`Mucosa`,`Turbinate Inflammation`,`Frontal Maxillary Sinus Tenderness`,`Mouth Hygiene`,`Dentures`,`Erythema`,`Exudates`,`selectedValue`) VALUES (?)";
+const addPhysicalExam2Query = "INSERT INTO physicalexam2 (`physical2_id`,`Masses`, `Range of Motion`,`Spine - trachea deviation`,`Thyroid size`, `Chest symmetry with respirations`, `Wheezes`, `Crackles`, `Vocal Ferritus`,`Rate`,`Rhythm`,`Murmurs`,`Rubs`,`Gallops`,`Clicks`,`Precordial Movements`,`Shape`,`Scars`,`Bowel sounds`,`Consistency`,`Abdomen Tenderness`,`Rebound`,`Abdomen Masses`,`Gaurding`,`Spleen Size`,`Liver Span`,`Ercussion`,`Costovertebral Tenderness`,`Skin Changes`,`Symmetry`,`Tenderness`,`Breasts Masses`,`Dimpling`,`Rashes`,`Ulcers`,`Genitourinary Scars`,`Nodules`,`Induration`,`Discharge`,`Scrotal Masses`,`Carotid`,`Radial`,`Femoral`,`Popliteal`,`Posterior tibial`,`Dorsalis pedis pulses`,`Carotid Bruits`,`Jugular Venous Distension`,`Edema`,`Varicosa Veins`,`Cervical Infraclavicular`,`Axillary`,`Trochlear`,`Cranial nerves`,`Sensation`,`Strength`,`Reflexes`,`Cerebellum`,`Gait`,`Sphincter tone`,`Prostate consistency`,`Masses Occult Stool Bicod`,`Muscle Atrophy`,`Weakness`,`Joint ange of motion`,`Instability`,`Redness`,`Swelling`,`Musculoskeletal Tenderness`,`Spine Deviation`,`Musculoskeletal Gait`) VALUES (?)";
+const addReviewSystem1Query = "INSERT INTO reviewsystem1 (`review1_id`,`weight_change`,`weight_change_in_kg`,`weight_change_time`,`fatigue`,`weakness`,`fever`,`chills`,`night_sweats`,`Skin`,`Hair`,`Nail Changes`,`Itching Skin`,`Rashes`,`Sores`,`Lumps`,`trauma`,`trauma_desc`,`headache`,`location`,`frequency`,`vomiting`,`nausea`,`visual_changes`,`Glasses`,`Contact Lenses`,`Blurriness`,`Tearing`,`Itching Eyes`,`Acute Visual Loss`,`Rhinorrhea`,`Stuffiness`,`Sneezing`,`Allergy`,`Itching Nose`,`Epistaxis`,`Bleeding Gums`,`Hoarseness`,`Soar Throat`,`Swollen Neck`) VALUES (?)";
+const addReviewSystem2Query = "INSERT INTO reviewsystem2 (`review2_id`,`Skin Changes`,`Masses/lumps`,`Breast Pain`,`Discharge`,`Self Exams`,`Shortness of Breath`,`Wheeze`,`Cough`,`Sputum`,`Hemoptysis`,`Pneumonia`,`Asthma`,`Bronchitis`,`Emphysema`,`Tuberculosis`,`Last Chest X-ray`,`Hypertension`,`Murmurs`,`Angina`,`Palpitation`,`Dyspnea on exertion`,`Orthopnea`,`Paroxysmal nocturnal dyspnea`,`Edema`,`Last EKG`,`Appetite`,`Nausea`,`Vomiting`,`Indigestion`,`Dysphagia`,`Bowel Movement`,`Frequency Change`,`Stool Color`,`Diarrhea`,`Constipation`,`Bleeding - Hemetemesis`,`Bleeding - Hemorrhoids`,`Bleeding - Melena or Hematechezia`,`Abdominal Pain`,`Jaundice`,`Hepatic`,`Frequency`,`Hesitancy`,`Urgency`,`Polyuria`,`Dysuria`,`Hematuria`,`Nocturia`,`Incontinence`,`Stones`,`Infection`,`Muscle Weakness`,`Musculoskeletal Pain`,`Joint Stiffness`,`Range of Motion`,`Instability`,`Redness`,`Swelling`,`Arthritis`,`Gout`) VALUES (?)";
+const addReviewSystem3Query = "INSERT INTO reviewsystem3 (`review3_id`,`Penile discharge sore`,`Testicular pain or masses`,`Hernias`,`Menarch`,`Period regularity`,`Frequency`,`Duration`,`Dysmennorhea`,`Last Period`,`Itching`,`Discharge`,`Sores`,`Pregnancies and Complications`,`Miscarriages - Abortions`,`Birth Control`,`Menopause`,`Hot flashes - Sweats`,`STD History - treatment`,`Sex interest`,`Function problems`,`Contraception methods`,`Heat cold intolerance`,`Excessive Sweating`,`Polyuria`,`Polydipsia`,`Polyphagia`,`Thyroid Problems`,`Diabetes`,`Anaemia`,`Easy bruising - bleeding`,`Petechia`,`Purpura`,`Transfusions`,`Loss of sensation - numbness`,`Tingling`,`Tremors`,`Weakness`,`Paralysis Fainting`,`Blackouts`,`Seizures`,`Mood`,`Anxiety`,`Depression`,`Tension`,`Memory`,`Leg edema`,`Claudication`,`Varicose veins`,`Thromboses - emboli`) VALUES (?)";
+const addLocationQuery = "INSERT INTO locations (`state`,`city`) values (?)";
+const getLocationQuery = "SELECT * FROM locations";
+const updateLocationQuery = "UPDATE locations SET ? WHERE location_id = ?";
+const deleteLocationQuery = "DELETE FROM locations WHERE location_id = ?";
+
 module.exports = {
   createAdminTableQuery,  
   insertAdminTableQuery,
@@ -671,5 +730,63 @@ module.exports = {
   createMedicationsTableQuery,
   createReviewSystem1TableQuery,
   createLocationTableQuery,
-  createSpecializationsTableQuery
+  createSpecializationsTableQuery,
+  adminLoginQuery,
+  getAdminQuery,
+  updateAdminQuery,
+  doctorLoginQuery,
+  insertDoctorQuery,
+  getDoctorQuery,
+  updateDoctorQuery,
+  deleteDoctorQuery,
+  patientLoginQuery,
+  insertPatientQuery,
+  addPatientQuery,
+  getPatientQuery,
+  patientForgotPasswordQuery,
+  patientChangePasswordQuery,
+  deletePatientQuery,
+  labagentLoginQuery,
+  insertLabagentQuery,
+  getLabagentQuery,
+  updateLabagentQuery,
+  deleteLabagentQuery,
+  addCenterQuery,
+  getCenterQuery,
+  updateCenterQuery,
+  deleteCenterQuery,
+  addLabQuery,
+  getLabQuery,
+  updateLabQuery,
+  addAppointmentQuery,
+  addAppointmentWithPatient,
+  addAppointmentWithCenter,
+  addAppointmentWithLab,
+  getAppointmentQuery,
+  addSpecializationQuery,
+  getSpecializationQuery,
+  getCountForDashboardQuery,
+  addPackageQuery,
+  getPackageQuery,
+  updatePackageQuery,
+  deletePackageQuery,
+  addMailboxQuery,
+  getMailboxQuery,
+  updateMailboxQuery,
+  superAdminLoginQuery,
+  getSuperAdminQuery,
+  updateSuperAdminQuery,
+  addHistory1Query,
+  addHistory2Query,
+  addMedicationQuery,
+  addAssessmentQuery,
+  addPhysicalExam1Query,
+  addPhysicalExam2Query,
+  addReviewSystem1Query,
+  addReviewSystem2Query,
+  addReviewSystem3Query,
+  addLocationQuery,
+  getLocationQuery,
+  updateLocationQuery,
+  deleteLocationQuery
 };

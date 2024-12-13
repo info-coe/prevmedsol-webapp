@@ -24,7 +24,7 @@ export default function AddDoctor() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/managecenters")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managecenters`)
       .then((res) => {
         res.data.map((item) => {
           return setCenters((oldArray) => [...oldArray, item]);
@@ -33,7 +33,7 @@ export default function AddDoctor() {
       .catch((err) => console.log(err));
 
       axios
-      .get("http://localhost:8080/specialization")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/specialization`)
       .then((res) => {
         res.data.map((item) => {
           return setSpecialization((oldArray) => [...oldArray, item]);
@@ -51,7 +51,7 @@ export default function AddDoctor() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("http://localhost:8080/adddoctor", values)
+    axios.post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/adddoctor`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while adding Doctor. Please try again filling all the fields');

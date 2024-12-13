@@ -26,7 +26,7 @@ const Superadminaccount = () => {
     e.preventDefault();
     if(values.password === values.confirmpassword){
       axios
-      .post(`http://localhost:8080/superadminprofile`, values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/superadminprofile`, values)
       .then((res) => {
         console.log(res);
         alert("Password updated successfully");

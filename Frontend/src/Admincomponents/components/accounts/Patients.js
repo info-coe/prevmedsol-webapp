@@ -16,7 +16,7 @@ const Patients = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/patients")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`)
       .then((res) => {
         res.data.map((item) => {
           return setPatients((oldArray) => [...oldArray, item]);
@@ -44,7 +44,7 @@ const Patients = () => {
     const emailToDelete = patients[index].email;
 
     axios
-      .delete(`http://localhost:8080/patients`, {
+      .delete(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`, {
         data: { email: emailToDelete },
       })
       .then((res) => {

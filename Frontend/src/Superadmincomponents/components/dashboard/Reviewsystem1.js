@@ -87,13 +87,12 @@ export default function Reviewsystem1() {
 
   const handleSave = (e) => {
     e.preventDefault();
-    const serverUrl = 'http://localhost:8080/reviewsystem1';
+    const serverUrl = `${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/reviewsystem1`;
 
     const data = {
       accordionContents: { ...accordionContents },
     };
 
-    console.log(data)
     axios.post(serverUrl, data)
       .then(response => {
         alert('Data saved successfully:', response.data);

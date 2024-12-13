@@ -18,7 +18,7 @@ const Managestate = () => {
   console.log(viewRowIndex);
   useEffect(() => {
     axios
-    .get("http://localhost:8080/location")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/location`)
     .then((res) => {
       res.data.map((item) => {
         return setStateData((oldArray) => [...oldArray, item]);
@@ -54,7 +54,7 @@ const Managestate = () => {
     const rowToDelete = stateData[index].location_id;
 
     axios
-      .delete(`http://localhost:8080/location`, {
+      .delete(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/location`, {
         data: { id: rowToDelete },
       })
       .then((res) => {

@@ -26,7 +26,7 @@ function Labagentprofile() {
     
       useEffect(() => {
         axios
-          .get("http://localhost:8080/labagents")
+          .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/labagents`)
           .then((res) => {
             // console.log(res.data);
             res.data.map((item)=>{
@@ -89,7 +89,7 @@ function Labagentprofile() {
         e.preventDefault();
         console.log(values)
         axios
-          .post(`http://localhost:8080/doctors`, values)
+          .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/doctors`, values)
           .then((res) => {
             console.log(res);
             window.location.reload(false);

@@ -28,6 +28,64 @@ const {
   createSpecializationsTableQuery,
   insertAdminTableQuery,
   insertSuperadminTableQuery,
+  adminLoginQuery,
+  getAdminQuery,
+  updateAdminQuery,
+  doctorLoginQuery,
+  insertDoctorQuery,
+  getDoctorQuery,
+  updateDoctorQuery,
+  deleteDoctorQuery,
+  patientLoginQuery,
+  insertPatientQuery,
+  addPatientQuery,
+  getPatientQuery,
+  patientForgotPasswordQuery,
+  patientChangePasswordQuery,
+  deletePatientQuery,
+  labagentLoginQuery,
+  insertLabagentQuery,
+  getLabagentQuery,
+  updateLabagentQuery,
+  deleteLabagentQuery,
+  addCenterQuery,
+  getCenterQuery,
+  updateCenterQuery,
+  deleteCenterQuery,
+  addLabQuery,
+  getLabQuery,
+  updateLabQuery,
+  addAppointmentQuery,
+  addAppointmentWithPatient,
+  addAppointmentWithCenter,
+  addAppointmentWithLab,
+  getAppointmentQuery,
+  addSpecializationQuery,
+  getSpecializationQuery,
+  getCountForDashboardQuery,
+  addPackageQuery,
+  getPackageQuery,
+  updatePackageQuery,
+  deletePackageQuery,
+  addMailboxQuery,
+  getMailboxQuery,
+  updateMailboxQuery,
+  superAdminLoginQuery,
+  getSuperAdminQuery,
+  updateSuperAdminQuery,
+  addHistory1Query,
+  addHistory2Query,
+  addMedicationQuery,
+  addAssessmentQuery,
+  addPhysicalExam1Query,
+  addPhysicalExam2Query,
+  addReviewSystem1Query,
+  addReviewSystem2Query,
+  addReviewSystem3Query,
+  addLocationQuery,
+  getLocationQuery,
+  updateLocationQuery,
+  deleteLocationQuery,
 } = require("./queries");
 var bodyParser = require("body-parser");
 const cors = require("cors");
@@ -218,7 +276,7 @@ db.query(createDatabaseQuery, (err) => {
 
 // checking admin
 app.post("/admin", (req, res) => {
-  const sql = "SELECT * FROM admin WHERE `email` = ? AND `password` = ?";
+  const sql = adminLoginQuery
   db.query(sql, [req.body.username, req.body.password], (err, data) => {
     if (err) {
       return res.json("Error");
@@ -233,7 +291,7 @@ app.post("/admin", (req, res) => {
 
 // retrieving admin
 app.get("/admin", (req, res) => {
-  const sql = "SELECT * FROM admin";
+  const sql = getAdminQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -249,7 +307,7 @@ app.get("/admin", (req, res) => {
 app.post("/adminprofile", (req, res) => {
   const email = req.body.email;
   const newData = req.body;
-  const sql = "UPDATE admin SET ? WHERE email = ?";
+  const sql = updateAdminQuery;
 
   db.query(sql, [newData, email], (err, data) => {
     if (err) {
@@ -265,7 +323,7 @@ app.post("/adminprofile", (req, res) => {
 // Queries related to doctor starts
 //doctor login check
 app.post("/doctor", (req, res) => {
-  const sql = "SELECT * FROM doctors WHERE `email` = ? AND `password` = ?";
+  const sql = doctorLoginQuery;
   db.query(sql, [req.body.username, req.body.password], (err, data) => {
     if (err) {
       return res.json("Error");
@@ -280,8 +338,7 @@ app.post("/doctor", (req, res) => {
 
 // add Doctor sql
 app.post("/adddoctor", (req, res) => {
-  const sql =
-    "INSERT INTO doctors (`firstname`,`lastname`,`gender`,`phone`,`email`,`password`,`hospital`,`specialization`,`address`,`country`,`state`,`city` ) VALUES (?)";
+  const sql = insertDoctorQuery;
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -308,7 +365,7 @@ app.post("/adddoctor", (req, res) => {
 
 // retrieving doctors
 app.get("/doctors", (req, res) => {
-  const sql = "SELECT * FROM doctors";
+  const sql = getDoctorQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -324,9 +381,7 @@ app.get("/doctors", (req, res) => {
 app.post("/doctors", (req, res) => {
   const email = req.body.email;
   const newData = req.body;
-  const sql = "UPDATE doctors SET ? WHERE email = ?";
-
-  // console.log(email);
+  const sql = updateDoctorQuery;
 
   db.query(sql, [newData, email], (err, data) => {
     if (err) {
@@ -340,7 +395,7 @@ app.post("/doctors", (req, res) => {
 
 app.delete("/doctors", (req, res) => {
   const email = req.body.email;
-  const sql = "DELETE FROM doctors WHERE email = ?";
+  const sql = deleteDoctorQuery;
 
   db.query(sql, [email], (err, data) => {
     if (err) {
@@ -357,7 +412,7 @@ app.delete("/doctors", (req, res) => {
 // Queries related to patient starts
 //patient login check
 app.post("/patient", (req, res) => {
-  const sql = "SELECT * FROM patients WHERE `email` = ? AND `password` = ?";
+  const sql = patientLoginQuery;
   db.query(sql, [req.body.username, req.body.password], (err, data) => {
     if (err) {
       console.log(err);
@@ -373,8 +428,7 @@ app.post("/patient", (req, res) => {
 
 // add user(register) sql
 app.post("/register", (req, res) => {
-  const sql =
-    "INSERT INTO patients (`firstname`,`middlename`,`lastname`,`email`,`password`,`phone`,`gender`,`dob`,`bloodgroup`,`country`,`state`,`city`,`street1`,`street2`,`zipcode` ) VALUES (?)";
+  const sql = insertPatientQuery;
   const values = [
     req.body.firstname,
     req.body.middlename,
@@ -404,8 +458,7 @@ app.post("/register", (req, res) => {
 
 // add patient sql
 app.post("/addpatient", (req, res) => {
-  const sql =
-    "INSERT INTO patients (`firstname`,`lastname`,`gender`,`bloodgroup`,`dob`,`phone`,`email`,`password`,`address`,`state`,`city`,`status` ) VALUES (?)";
+  const sql = addPatientQuery;
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -432,7 +485,7 @@ app.post("/addpatient", (req, res) => {
 
 // retrieving patients
 app.get("/patients", (req, res) => {
-  const sql = "SELECT * FROM patients";
+  const sql = getPatientQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -448,7 +501,7 @@ app.get("/patients", (req, res) => {
 app.post("/patients", (req, res) => {
   const email = req.body.email;
   if (req.body.frompage === "forgotpassword") {
-    const sql = "UPDATE patients SET password = ? WHERE email = ?";
+    const sql = patientForgotPasswordQuery;
     var password = req.body.password;
     db.query(sql, [password, email], (err, data) => {
       if (err) {
@@ -459,7 +512,7 @@ app.post("/patients", (req, res) => {
       return res.json(data);
     });
   } else {
-    const sql = "UPDATE patients SET ? WHERE email = ?";
+    const sql = patientChangePasswordQuery;
     var newData = req.body;
     db.query(sql, [newData, email], (err, data) => {
       if (err) {
@@ -471,12 +524,11 @@ app.post("/patients", (req, res) => {
     });
   }
 
-  // console.log(email);
 });
 
 app.delete("/patients", (req, res) => {
   const email = req.body.email;
-  const sql = "DELETE FROM patients WHERE email = ?";
+  const sql = deletePatientQuery;
 
   db.query(sql, [email], (err, data) => {
     if (err) {
@@ -493,7 +545,7 @@ app.delete("/patients", (req, res) => {
 // Queries related to lab agent starts
 //lab agent login check
 app.post("/lab", (req, res) => {
-  const sql = "SELECT * FROM labagents WHERE `email` = ? AND `password` = ?";
+  const sql = labagentLoginQuery;
   db.query(sql, [req.body.username, req.body.password], (err, data) => {
     if (err) {
       return res.json("Error");
@@ -508,8 +560,7 @@ app.post("/lab", (req, res) => {
 
 // add lab agent sql
 app.post("/addlabagent", (req, res) => {
-  const sql =
-    "INSERT INTO labagents (`firstname`,`lastname`,`gender`,`phone`,`email`,`password`,`labname`,`address`,`state`,`city` ) VALUES (?)";
+  const sql = insertLabagentQuery;
   const values = [
     req.body.firstname,
     req.body.lastname,
@@ -534,7 +585,7 @@ app.post("/addlabagent", (req, res) => {
 
 // retrieving labagents
 app.get("/labagents", (req, res) => {
-  const sql = "SELECT * FROM labagents";
+  const sql = getLabagentQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -550,13 +601,10 @@ app.get("/labagents", (req, res) => {
 app.post("/labagents", (req, res) => {
   const email = req.body.email;
   const newData = req.body;
-  const sql = "UPDATE labagents SET ? WHERE email = ?";
-
-  // console.log(email);
+  const sql = updateLabagentQuery;
 
   db.query(sql, [newData, email], (err, data) => {
     if (err) {
-      console.log(err);
       return res.json(err);
     }
     console.log("Data updated successfully");
@@ -566,7 +614,7 @@ app.post("/labagents", (req, res) => {
 
 app.delete("/labagents", (req, res) => {
   const email = req.body.email;
-  const sql = "DELETE FROM labagents WHERE email = ?";
+  const sql = deleteLabagentQuery;
 
   db.query(sql, [email], (err, data) => {
     if (err) {
@@ -598,8 +646,7 @@ app.delete("/labagents", (req, res) => {
 // Queries related to centers starts
 // add center sql
 app.post("/addcenter", (req, res) => {
-  const sql =
-    "INSERT INTO centers (`centername`,`phone`,`email`,`password`,`fromtiming`,`totiming`,`address`,`state`,`city` ) VALUES (?)";
+  const sql = addCenterQuery;
   const values = [
     req.body.centername,
     req.body.phone,
@@ -623,7 +670,7 @@ app.post("/addcenter", (req, res) => {
 
 // retrieving centers
 app.get("/managecenters", (req, res) => {
-  const sql = "SELECT * FROM centers";
+  const sql = getCenterQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -639,7 +686,7 @@ app.get("/managecenters", (req, res) => {
 app.post("/managecenters", (req, res) => {
   const email = req.body.email;
   const newData = req.body;
-  const sql = "UPDATE centers SET ? WHERE email = ?";
+  const sql = updateCenterQuery;
 
   // console.log(email);
 
@@ -655,7 +702,7 @@ app.post("/managecenters", (req, res) => {
 
 app.delete("/managecenters", (req, res) => {
   const email = req.body.email;
-  const sql = "DELETE FROM centers WHERE email = ?";
+  const sql = deleteCenterQuery;
 
   db.query(sql, [email], (err, data) => {
     if (err) {
@@ -672,8 +719,7 @@ app.delete("/managecenters", (req, res) => {
 // Queries related to labs starts
 // add lab sql
 app.post("/addlab", (req, res) => {
-  const sql =
-    "INSERT INTO labs (`labname`,`address`,`state`,`city`,`fromtiming`,`totiming` ) VALUES (?)";
+  const sql = addLabQuery;
   const values = [
     req.body.labname,
     req.body.address,
@@ -694,7 +740,7 @@ app.post("/addlab", (req, res) => {
 
 // retrieving labs
 app.get("/managelabs", (req, res) => {
-  const sql = "SELECT * FROM labs";
+  const sql = getLabQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -710,9 +756,7 @@ app.get("/managelabs", (req, res) => {
 app.post("/managelabs", (req, res) => {
   const email = req.body.email;
   const newData = req.body;
-  const sql = "UPDATE labs SET ? WHERE email = ?";
-
-  // console.log(email);
+  const sql = updateLabQuery;
 
   db.query(sql, [newData, email], (err, data) => {
     if (err) {
@@ -728,8 +772,7 @@ app.post("/managelabs", (req, res) => {
 // Queries related to appointment
 // add appointment sql
 app.post("/addappointment", (req, res) => {
-  const sql =
-    "INSERT INTO appointments (`patient`,`appointment`,`center`,`date`,`time` ) VALUES (?)";
+  const sql = addAppointmentQuery;
   const values = [
     req.body.patient,
     req.body.appointment,
@@ -749,9 +792,9 @@ app.post("/addappointment", (req, res) => {
 
 // retrieving add appointment details
 app.get("/addappointment", (req, res) => {
-  const sql1 = "SELECT  firstname, lastname from patients";
-  const sql2 = "select centername, fromtiming, totiming from centers";
-  const sql3 = "SELECT labname, fromtiming, totiming from labs";
+  const sql1 = addAppointmentWithPatient;
+  const sql2 = addAppointmentWithCenter;
+  const sql3 = addAppointmentWithLab;
 
   const result = { data1: [], data2: [], data3: [] };
 
@@ -782,8 +825,8 @@ app.get("/addappointment", (req, res) => {
 
 // retrieving patient appointments
 app.get("/patientappointment", (req, res) => {
-  const sql1 = "SELECT * from patients";
-  const sql2 = "SELECT * FROM appointments";
+  const sql1 = getPatientQuery;
+  const sql2 = getAppointmentQuery;
 
   const result = { data1: [], data2: [] };
 
@@ -809,7 +852,7 @@ app.get("/patientappointment", (req, res) => {
 // Queries related to specialization
 
 app.post("/addspecialization", (req,res) => {
-  const sql = "INSERT INTO specializations (`specialization`,`specialization_description`) values (?)";
+  const sql = addSpecializationQuery;
   const values = [
     req.body.specialization,
     req.body.description,
@@ -825,7 +868,7 @@ app.post("/addspecialization", (req,res) => {
 });
 
 app.get("/specialization", (req, res) => {
-  const sql = "SELECT * FROM specializations";
+  const sql = getSpecializationQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -844,7 +887,7 @@ app.get("/specialization", (req, res) => {
 app.get("/dashboardPage", (req, res) => {
   const result = [];
 
-  const sql = "select count(*) as rowcount  from ";
+  const sql = getCountForDashboardQuery;
 
   db.query(sql + "doctors", (err, dbdata1) => {
     if (err) {
@@ -883,8 +926,7 @@ app.get("/dashboardPage", (req, res) => {
 // Queries related to packages starts
 // add package sql
 app.post("/addpackage", (req, res) => {
-  const sql =
-    "INSERT INTO packages (`packagename`,`packagedescription`,`amount`,`imageurl`,`service1`,`service2`,`service3`,`service4`,`service5`,`service6`,`service7`,`service8`,`service9`,`service10` ) VALUES (?)";
+  const sql = addPackageQuery;
   const values = [
     req.body.packagename,
     req.body.description,
@@ -913,7 +955,7 @@ app.post("/addpackage", (req, res) => {
 
 // retrieving packages
 app.get("/packages", (req, res) => {
-  const sql = "SELECT * FROM packages";
+  const sql = getPackageQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -929,9 +971,7 @@ app.get("/packages", (req, res) => {
 app.post("/managepackages", (req, res) => {
   const packagename = req.body.packagename;
   const newData = req.body;
-  const sql = "UPDATE packages SET ? WHERE packagename = ?";
-
-  // console.log(newData);
+  const sql = updatePackageQuery;
 
   db.query(sql, [newData, packagename], (err, data) => {
     if (err) {
@@ -945,7 +985,7 @@ app.post("/managepackages", (req, res) => {
 
 app.delete("/managepackages", (req, res) => {
   const packagename = req.body.packagename;
-  const sql = "DELETE FROM packages WHERE packagename = ?";
+  const sql = deletePackageQuery;
 
   db.query(sql, [packagename], (err, data) => {
     if (err) {
@@ -961,8 +1001,7 @@ app.delete("/managepackages", (req, res) => {
 
 // send email related sql
 app.post("/patientsentdata", (req, res) => {
-  const sql =
-    "INSERT INTO sentmailbox (`fromemail`,`toemail`,`subject`,`message`,`date`,`time`,`status`) VALUES (?)";
+  const sql = addMailboxQuery;
   const values = [
     req.body.fromemail,
     req.body.toemail,
@@ -984,7 +1023,7 @@ app.post("/patientsentdata", (req, res) => {
 
 // retrieving patientsenddata
 app.get("/patientsentdata", (req, res) => {
-  const sql = "SELECT * FROM sentmailbox";
+  const sql = getMailboxQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -1001,9 +1040,7 @@ app.get("/patientsentdata", (req, res) => {
 app.post("/inbox", (req, res) => {
   const toemail = req.body.toemail;
   const status = req.body.status;
-  const sql = "UPDATE sentmailbox SET status = ? WHERE toemail = ?";
-
-  // console.log(email);
+  const sql = updateMailboxQuery;
 
   db.query(sql, [status, toemail], (err, data) => {
     if (err) {
@@ -1019,7 +1056,7 @@ app.post("/inbox", (req, res) => {
 
 // checking superadmin
 app.post("/superadmin", (req, res) => {
-  const sql = "SELECT * FROM superadmin WHERE `password` = ?";
+  const sql = superAdminLoginQuery;
   db.query(sql, [req.body.password], (err, data) => {
     if (err) {
       return res.json("Error");
@@ -1034,7 +1071,7 @@ app.post("/superadmin", (req, res) => {
 
 // retrieving superadmin
 app.get("/superadmin", (req, res) => {
-  const sql = "SELECT * FROM superadmin";
+  const sql = getSuperAdminQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -1050,9 +1087,7 @@ app.get("/superadmin", (req, res) => {
 app.post("/superadminprofile", (req, res) => {
   const email = req.body.email;
   const newData = req.body;
-  const sql = "UPDATE superadmin SET ? WHERE email = ?";
-
-  // console.log(email);
+  const sql = updateSuperAdminQuery;
 
   db.query(sql, [newData, email], (err, data) => {
     if (err) {
@@ -1065,8 +1100,7 @@ app.post("/superadminprofile", (req, res) => {
 });
 
 app.post("/history1", (req, res) => {
-  const sql =
-    "insert into emrhistory1 (`history1_id`, `complaint_date`, `present_illness`, `onset`, `duration`, `frequency`, `location`, `quality`, `severity`, `aggravating_factors`, `alleviating_factors`, `associated_symptoms`) values (?)";
+  const sql = addHistory1Query;
 
   db.query(sql, [Object.values(req.body)], (err, data) => {
     if (err) {
@@ -1080,8 +1114,7 @@ app.post("/history1", (req, res) => {
 });
 
 app.post("/history2", (req, res) => {
-  const sql =
-    "insert into emrhistory2 (`history2_id`, `diabetes`, `heartdisease`, `heartdisease_desc`, `hypertension`, `stroke`, `asthama`, `asthama_desc`, `cancer`, `arthritis`, `tuberculosis`, `epilepsy`, `epilepsy_desc`, `operation_date`, `operation_type`, `operation_reason`, `operation_outcome`, `operation_complication`, `polio`, `measles`, `mumps`, `rubella`, `whooping_cough`, `chicken_pox`, `rheumatic_fever`, `bcg`, `mmr`, `polio_immune`, `hepatitis`, `influenza`, `pneumonia`, `varicella`, `motor_vehicle_accidents`, `motor_vehicle_accidents_desc`, `blood_group`, `blood_transfusions_received`, `blood_transfusions_given`, `hospitalizations`, `hospitalized_date`, `hospitalized_reason`, `hospitalized_outcome`, `parents_living`, `cause_of_death`, `siblings`, `medical_issues_with_siblings`, `no_of_children`, `medical_issues_with_children`, `spouse`, `hemoccults`, `blood_pressure`, `xray_chest`, `hepotitis_b`, `cholestorol_screen`, `basic_metabolic_panel`, `foot_exam`, `tuberculin_skin_test`, `random_blood_sugar`, `vision_check`, `hepatitis_c`, `pap_smear`, `liver_function_tests`, `hepotitis_a`, `urine_analysis`, `CBC_with_differential`, `diabetics_urine`, `hiv`, `living_accommodations`, `birthplace`, `education`, `hobbies`, `religion`, `persons_at_home`, `employment`, `diet`, `marriage_divorce`, `exercise`, `secondary_smoking`, `history_of_secondary_smoking`, `tobacco`, `tobacco_no_of_years`, `drugs`, `drugs_no_of_years`, `alcohol`, `alcohol_no_of_years`) values (?)";
+  const sql = addHistory2Query;
 
   db.query(sql, [Object.values(req.body)], (err, data) => {
     if (err) {
@@ -1095,8 +1128,7 @@ app.post("/history2", (req, res) => {
 });
 
 app.post("/medication", (req, res) => {
-  const sql =
-    "insert into emrmedication (`medications_id`, `medications`, `medicine_type`, `medicine_name`, `dose`, `frequency`, `duration`, `reason_for_taking`, `compliance`, `takes_as_prescribed`, `allergies`, `allergic_reaction`, `allergy_type`) values (?)";
+  const sql = addMedicationQuery;
 
   db.query(sql, [Object.values(req.body)], (err, data) => {
     if (err) {
@@ -1106,12 +1138,10 @@ app.post("/medication", (req, res) => {
     console.log("Data updated successfully");
     return res.json(data);
   });
-  // console.log(Object.values(req.body));
 });
 
 app.post("/addassessment", (req, res) => {
-  const sql =
-    "INSERT INTO assessments (`assement_id`,`assessment`, `plans`) VALUES (?)";
+  const sql = addAssessmentQuery;
 
   db.query(sql, [Object.values(req.body)], (err, data) => {
     if (err) {
@@ -1124,8 +1154,7 @@ app.post("/addassessment", (req, res) => {
 });
 
 app.post("/physicalexam1", (req, res) => {
-  const sql =
-    "INSERT INTO physicalexam1 (`physical1_id`,`Blood Pressure`,`Pulse`,`Respirations`,`Temperature`,`State of Health`,`Stature`,`Dress`,`Hygiene`,`Skin scars`,`Rashes`,`Bruises`,`Tattoos`,`Hair Consistency`,`Nail Pitting`,`Pupil size`,`Shape`,`Reactivity`,`Conjunctival`,`Scelral icterus`,`Fundal Papiledema`,`Hemorrhage`,`Lids`,`Extraocular Movements`,`Visual Fields`,`Acuity`,`Shape - Symmetry`,`Tenderness`,`Discharge`,`External Canal`,`Tympanic Membrone Inflammation`,`Gross Auditory Acuity`,`Symmetry`,`Nose-Tenderness`,`Nose-Discharge`,`Mucosa`,`Turbinate Inflammation`,`Frontal Maxillary Sinus Tenderness`,`Mouth Hygiene`,`Dentures`,`Erythema`,`Exudates`,`selectedValue`) VALUES (?)";
+  const sql = addPhysicalExam1Query;
 
   db.query(sql, [Object.values(req.body.accordionContents)], (err, data) => {
     if (err) {
@@ -1136,9 +1165,9 @@ app.post("/physicalexam1", (req, res) => {
     return res.json(data);
   });
 });
+
 app.post("/physicalexam2", (req, res) => {
-  const sql =
-    "INSERT INTO physicalexam2 (`physical2_id`,`Masses`, `Range of Motion`,`Spine - trachea deviation`,`Thyroid size`, `Chest symmetry with respirations`, `Wheezes`, `Crackles`, `Vocal Ferritus`,`Rate`,`Rhythm`,`Murmurs`,`Rubs`,`Gallops`,`Clicks`,`Precordial Movements`,`Shape`,`Scars`,`Bowel sounds`,`Consistency`,`Abdomen Tenderness`,`Rebound`,`Abdomen Masses`,`Gaurding`,`Spleen Size`,`Liver Span`,`Ercussion`,`Costovertebral Tenderness`,`Skin Changes`,`Symmetry`,`Tenderness`,`Breasts Masses`,`Dimpling`,`Rashes`,`Ulcers`,`Genitourinary Scars`,`Nodules`,`Induration`,`Discharge`,`Scrotal Masses`,`Carotid`,`Radial`,`Femoral`,`Popliteal`,`Posterior tibial`,`Dorsalis pedis pulses`,`Carotid Bruits`,`Jugular Venous Distension`,`Edema`,`Varicosa Veins`,`Cervical Infraclavicular`,`Axillary`,`Trochlear`,`Cranial nerves`,`Sensation`,`Strength`,`Reflexes`,`Cerebellum`,`Gait`,`Sphincter tone`,`Prostate consistency`,`Masses Occult Stool Bicod`,`Muscle Atrophy`,`Weakness`,`Joint ange of motion`,`Instability`,`Redness`,`Swelling`,`Musculoskeletal Tenderness`,`Spine Deviation`,`Musculoskeletal Gait`) VALUES (?)";
+  const sql = addPhysicalExam2Query;
 
   db.query(sql, [Object.values(req.body.accordionContents)], (err, data) => {
     if (err) {
@@ -1152,9 +1181,7 @@ app.post("/physicalexam2", (req, res) => {
 });
 
 app.post("/reviewsystem1", (req, res) => {
-  //   const sql = "INSERT INTO reviewsystem2 () VALUES (?)";
-  const sql =
-    "INSERT INTO reviewsystem1 (`review1_id`,`weight_change`,`weight_change_in_kg`,`weight_change_time`,`fatigue`,`weakness`,`fever`,`chills`,`night_sweats`,`Skin`,`Hair`,`Nail Changes`,`Itching Skin`,`Rashes`,`Sores`,`Lumps`,`trauma`,`trauma_desc`,`headache`,`location`,`frequency`,`vomiting`,`nausea`,`visual_changes`,`Glasses`,`Contact Lenses`,`Blurriness`,`Tearing`,`Itching Eyes`,`Acute Visual Loss`,`Rhinorrhea`,`Stuffiness`,`Sneezing`,`Allergy`,`Itching Nose`,`Epistaxis`,`Bleeding Gums`,`Hoarseness`,`Soar Throat`,`Swollen Neck`) VALUES (?)";
+  const sql = addReviewSystem1Query;
 
   db.query(sql, [Object.values(req.body.accordionContents)], (err, data) => {
     if (err) {
@@ -1168,9 +1195,7 @@ app.post("/reviewsystem1", (req, res) => {
 });
 
 app.post("/reviewsystem2", (req, res) => {
-  //   const sql = "INSERT INTO reviewsystem2 () VALUES (?)";
-  const sql =
-    "INSERT INTO reviewsystem2 (`review2_id`,`Skin Changes`,`Masses/lumps`,`Breast Pain`,`Discharge`,`Self Exams`,`Shortness of Breath`,`Wheeze`,`Cough`,`Sputum`,`Hemoptysis`,`Pneumonia`,`Asthma`,`Bronchitis`,`Emphysema`,`Tuberculosis`,`Last Chest X-ray`,`Hypertension`,`Murmurs`,`Angina`,`Palpitation`,`Dyspnea on exertion`,`Orthopnea`,`Paroxysmal nocturnal dyspnea`,`Edema`,`Last EKG`,`Appetite`,`Nausea`,`Vomiting`,`Indigestion`,`Dysphagia`,`Bowel Movement`,`Frequency Change`,`Stool Color`,`Diarrhea`,`Constipation`,`Bleeding - Hemetemesis`,`Bleeding - Hemorrhoids`,`Bleeding - Melena or Hematechezia`,`Abdominal Pain`,`Jaundice`,`Hepatic`,`Frequency`,`Hesitancy`,`Urgency`,`Polyuria`,`Dysuria`,`Hematuria`,`Nocturia`,`Incontinence`,`Stones`,`Infection`,`Muscle Weakness`,`Musculoskeletal Pain`,`Joint Stiffness`,`Range of Motion`,`Instability`,`Redness`,`Swelling`,`Arthritis`,`Gout`) VALUES (?)";
+  const sql = addReviewSystem2Query;
 
   db.query(sql, [Object.values(req.body.accordionContents)], (err, data) => {
     if (err) {
@@ -1184,8 +1209,8 @@ app.post("/reviewsystem2", (req, res) => {
 });
 
 app.post("/reviewsystem3", (req, res) => {
-  const sql =
-    "INSERT INTO reviewsystem3 (`review3_id`,`Penile discharge sore`,`Testicular pain or masses`,`Hernias`,`Menarch`,`Period regularity`,`Frequency`,`Duration`,`Dysmennorhea`,`Last Period`,`Itching`,`Discharge`,`Sores`,`Pregnancies and Complications`,`Miscarriages - Abortions`,`Birth Control`,`Menopause`,`Hot flashes - Sweats`,`STD History - treatment`,`Sex interest`,`Function problems`,`Contraception methods`,`Heat cold intolerance`,`Excessive Sweating`,`Polyuria`,`Polydipsia`,`Polyphagia`,`Thyroid Problems`,`Diabetes`,`Anaemia`,`Easy bruising - bleeding`,`Petechia`,`Purpura`,`Transfusions`,`Loss of sensation - numbness`,`Tingling`,`Tremors`,`Weakness`,`Paralysis Fainting`,`Blackouts`,`Seizures`,`Mood`,`Anxiety`,`Depression`,`Tension`,`Memory`,`Leg edema`,`Claudication`,`Varicose veins`,`Thromboses - emboli`) VALUES (?)";
+  const sql = addReviewSystem3Query;
+
   db.query(sql, [Object.values(req.body.accordionContents)], (err, data) => {
     if (err) {
       console.log(err);
@@ -1202,7 +1227,7 @@ app.post("/reviewsystem3", (req, res) => {
 // Queries related to locations
 
 app.post("/location", (req,res) => {
-  const sql = "INSERT INTO locations (`state`,`city`) values (?)";
+  const sql = addLocationQuery;
   const values = [req.body.location_state, req.body.location_city];
   db.query(sql, [values], (err,data) => {
     if (err){
@@ -1215,7 +1240,7 @@ app.post("/location", (req,res) => {
 });
 
 app.get("/location", (req, res) => {
-  const sql = "SELECT * FROM locations";
+  const sql = getLocationQuery;
   db.query(sql, (err, data) => {
     if (err) {
       return res.json("Error");
@@ -1231,9 +1256,7 @@ app.get("/location", (req, res) => {
 app.post("/locations", (req, res) => {
   const state = req.body.location_id;
   const newData = req.body;
-  const sql = "UPDATE locations SET ? WHERE location_id = ?";
-
-  // console.log(newData);
+  const sql = updateLocationQuery;
 
   db.query(sql, [newData, state], (err, data) => {
     if (err) {
@@ -1247,7 +1270,7 @@ app.post("/locations", (req, res) => {
 
 app.delete("/location", (req, res) => {
   const location_id = req.body.id;
-  const sql = "DELETE FROM locations WHERE location_id = ?";
+  const sql = deleteLocationQuery;
 
   db.query(sql, [location_id], (err, data) => {
     if (err) {
@@ -1265,8 +1288,8 @@ app.delete("/location", (req, res) => {
 // Replace these with your PayPal Sandbox API credentials
 paypal.configure({
   mode: 'sandbox',
-  client_id: 'AdvZ702xgxG8lwUscVpDklZXMtX6BOh7NwhSTOqCgk68KwfHEfUgYVohuumkqQenGHmfB34gbidy8haG',
-  client_secret: 'EL5aMkT9NUz4BMQ8s2qJUkRa1eZBpV1ZhedSaTKMnfS4_9NYqCZcGZRRU9UcEMDn12FHbquER0BkrytE',
+  client_id: process.env.REACT_APP_PAYPAL_CLIENTID,
+  client_secret: process.env.REACT_APP_PAYPAL_CLIENTSECRET,
 });
 
 
@@ -1285,8 +1308,8 @@ app.post('/createPayment', (req, res) => {
       },
 
       redirect_urls: {
-          return_url: 'http://localhost:8080/success',
-          cancel_url: 'http://localhost:8080/cancel',
+          return_url: `${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/success`,
+          cancel_url: `${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/cancel`,
       },
       transactions: [{
           item_list: {
@@ -1331,7 +1354,7 @@ app.get('/success', (req, res) => {
       } else {
           // console.log(JSON.stringify(payment));
           // res.send('Payment success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
-          res.redirect('http://localhost:3000/Prevmedsol/register');
+          res.redirect(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_FRONTEND_PORT}/register`);
       }
   });
 });
@@ -1340,6 +1363,6 @@ app.get('/cancel', (req, res) => {
   res.send('Payment canceled.');
 });
 
-app.listen(8080, () => {
+app.listen(process.env.REACT_APP_BACKEND_PORT || 8080, () => {
   console.log("listening");
 });

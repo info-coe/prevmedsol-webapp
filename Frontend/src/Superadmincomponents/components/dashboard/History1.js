@@ -36,7 +36,7 @@ const History1 = () => {
     // setErrors(Validation(values));
     // if (errors.name === "" && errors.email === "" && errors.password === "" && errors.cnfpassword === "") {
     axios
-      .post("http://localhost:8080/history1", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/history1`, values)
       .then((res) => {
         if (res.data === "Error") {
           alert("Error while submitting data. Please try again");

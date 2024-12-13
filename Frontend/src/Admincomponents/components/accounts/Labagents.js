@@ -16,7 +16,7 @@ const Labagents = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/labagents")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/labagents`)
       .then((res) => {
         res.data.map((item) => {
           return setLabagents((oldArray) => [...oldArray, item]);
@@ -43,7 +43,7 @@ const Labagents = () => {
   const handleDelete = (index) => {
     const emailToDelete = labagents[index].email;
 
-    axios.delete(`http://localhost:8080/labagents`, { data: { email: emailToDelete } })
+    axios.delete(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/labagents`, { data: { email: emailToDelete } })
         .then((res) => {
             console.log(res);
             window.location.reload(false);

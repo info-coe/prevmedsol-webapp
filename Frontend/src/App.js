@@ -168,7 +168,7 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter basename="Prevmedsol">
+      <BrowserRouter>
         <Scrolltotop />
         <Routes>
           {/* Admin components routes */}

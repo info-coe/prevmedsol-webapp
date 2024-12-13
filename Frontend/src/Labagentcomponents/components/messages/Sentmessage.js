@@ -13,7 +13,7 @@ const LabagentSentmessage = () => {
   
   useEffect(() => {
     axios
-      .get("http://localhost:8080/patientsentdata")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patientsentdata`)
       .then((res) => {
         res.data.map((item) => {
           if (labagent.email === item.fromemail) {

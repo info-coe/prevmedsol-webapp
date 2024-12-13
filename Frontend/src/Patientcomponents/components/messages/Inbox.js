@@ -18,7 +18,7 @@ const Inbox = () => {
   
   useEffect(() => {
     axios
-      .get("http://localhost:8080/patientsentdata")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patientsentdata`)
       .then((res) => {
         res.data.map((item) => {
           if (user.email === item.toemail) {
@@ -36,7 +36,7 @@ const Inbox = () => {
     info1.map((item,index)=>{
       if(index===indexclicked){
         if(item.status === "unread"){
-          axios.post("http://localhost:8080/inbox", values)
+          axios.post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/inbox`, values)
           .then((res) => {
             console.log(res);
           })

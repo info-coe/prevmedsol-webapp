@@ -39,7 +39,7 @@ function Booknewappointment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/addappointment")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/addappointment`)
       .then((res) => {
         res.data.data2.map((item)=>{
           return setCenters(oldArray => [...oldArray, item]);

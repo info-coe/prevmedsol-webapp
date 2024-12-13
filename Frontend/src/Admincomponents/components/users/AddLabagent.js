@@ -21,7 +21,7 @@ const Addlabagent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/managelabs")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managelabs`)
       .then((res) => {
         res.data.map((item) => {
           return setLabs((oldArray) => [...oldArray, item]);
@@ -41,7 +41,7 @@ const Addlabagent = () => {
     console.log(values);
     event.preventDefault();
     axios
-      .post("http://localhost:8080/addlabagent", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/addlabagent`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while adding labagent. Please try again filling all the fields');

@@ -22,7 +22,7 @@ const Editlabagent = () => {
 
   useEffect(() => {
     axios
-    .get("http://localhost:8080/labagents")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/labagents`)
     .then((res) => {
       res.data.map((item) => {
         if(item.labagent_id === parseInt(id)){
@@ -46,7 +46,7 @@ const Editlabagent = () => {
     .catch((err) => console.log(err));
 
     axios
-      .get("http://localhost:8080/managelabs")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managelabs`)
       .then((res) => {
         res.data.map((item) => {
           return setLabs((oldArray) => [...oldArray, item]);
@@ -67,7 +67,7 @@ const Editlabagent = () => {
     console.log(values);
     event.preventDefault();
     axios
-      .post("http://localhost:8080/labagents", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/labagents`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while updating labagent. Please try again filling all the fields');

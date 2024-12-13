@@ -84,7 +84,7 @@ export default function Forgotpassword() {
     const cpass = document.getElementById("cpassword").value;
     if(pass.toString() === cpass){
         axios
-        .post("http://localhost:8080/patients", values)
+        .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`, values)
         .then((res) => {
           if(res.data === "Error"){
             alert('Password updation Failed');

@@ -16,7 +16,7 @@ const Managelabs = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/managelabs")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managelabs`)
       .then((res) => {
         res.data.map((item) => {
           return setLabs((oldArray) => [...oldArray, item]);
@@ -45,7 +45,7 @@ const Managelabs = () => {
     const addressToDelete = labs[index].address;
 
     axios
-      .delete(`http://localhost:8080/managelabs`, {
+      .delete(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managelabs`, {
         data: { email: emailToDelete, address: addressToDelete },
       })
       .then((res) => {

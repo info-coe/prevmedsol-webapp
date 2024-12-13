@@ -41,7 +41,7 @@ function Superadminprofile() {
     
       useEffect(() => {
         axios
-          .get("http://localhost:8080/superadmin")
+          .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/superadmin`)
           .then((res) => {
             // console.log(res.data);
             res.data.map((item)=>{
@@ -81,7 +81,7 @@ function Superadminprofile() {
       const handleSave = (e) => {
         e.preventDefault();
         axios
-          .post(`http://localhost:8080/superadminprofile`, values)
+          .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/superadminprofile`, values)
           .then((res) => {
             window.location.reload(false);
           })

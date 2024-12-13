@@ -26,7 +26,7 @@ function Doctorprofile() {
     
       useEffect(() => {
         axios
-          .get("http://localhost:8080/doctors")
+          .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/doctors`)
           .then((res) => {
             // console.log(res.data);
             res.data.map((item)=>{
@@ -88,7 +88,7 @@ function Doctorprofile() {
       const handleSave = (e) => {
         e.preventDefault();
         axios
-          .post(`http://localhost:8080/doctors`, values)
+          .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/doctors`, values)
           .then((res) => {
             console.log(res);
             window.location.reload(false);

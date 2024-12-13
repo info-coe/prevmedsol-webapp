@@ -8,7 +8,7 @@ export default function Mainnavbar() {
   const {cartItems,removeFromCart  } = useData();
   const createPayment = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/createPayment', { cartItems });
+      const response = await axios.post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/createPayment`, { cartItems });
       window.location.href = response.data.redirectUrl;
     } catch (error) {
       console.error('Error creating payment:', error.response ? error.response.data : error.message);

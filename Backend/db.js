@@ -1,18 +1,35 @@
 require("dotenv").config();
-const mysql = require('mysql');
+var mysql = require('mysql');
 
-const db = mysql.createConnection({
-    host: process.env.REACT_APP_DB_HOST,
-    user: process.env.REACT_APP_DB_USER,
-    password: process.env.REACT_APP_DB_PASSWORD,
+// connect to the db
+dbConnectionInfo = {
+  host: process.env.REACT_APP_DB_HOST,
+  user: process.env.REACT_APP_DB_USER,
+  password: process.env.REACT_APP_DB_PASSWORD,
+  connectionLimit: 10, 
+  database: process.env.REACT_APP_DB_DATABASE,
+  connectTimeout  : 60 * 60 * 1000,
+  acquireTimeout  : 60 * 60 * 1000,
+  timeout         : 60 * 60 * 1000
+};
+
+
+//create mysql connection pool
+var dbconnection = mysql.createPool(
+  dbConnectionInfo
+);
+
+// Attempt to catch disconnects 
+dbconnection.on('connection', function (connection) {
+  console.log('DB Connection established');
+
+  connection.on('error', function (err) {
+    console.error(new Date(), 'MySQL error', err.code);
+  });
+  connection.on('close', function (err) {
+    console.error(new Date(), 'MySQL close', err);
+  });
+
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('Error connecting to MySQL: ', err);
-  } else {
-    console.log('Connected to MySQL database');
-  }
-});
-
-module.exports = db;
+module.exports = dbconnection;

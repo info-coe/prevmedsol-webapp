@@ -25,7 +25,7 @@ export default function EditPackages() {
 
   useEffect(()=> {
     axios
-    .get("http://localhost:8080/packages")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/packages`)
     .then((res) => {
       res.data.map((item) => {
         if(item.package_id === parseInt(id)){
@@ -66,7 +66,7 @@ export default function EditPackages() {
     console.log(values);
     event.preventDefault();
     axios
-      .post("http://localhost:8080/managepackages", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managepackages`, values)
       .then((res) => {
         if (res.data === "Error") {
           alert(

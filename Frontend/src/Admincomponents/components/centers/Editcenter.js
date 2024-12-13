@@ -20,7 +20,7 @@ const Editcenter = () => {
 
   useEffect(()=> {
     axios
-    .get("http://localhost:8080/managecenters")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managecenters`)
     .then((res) => {
       res.data.map((item) => {
         if(item.center_id === parseInt(id)){
@@ -55,7 +55,7 @@ const Editcenter = () => {
     console.log(values);
     event.preventDefault();
       axios
-      .post("http://localhost:8080/managecenters", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managecenters`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while updating center. Please try again filling all the fields');

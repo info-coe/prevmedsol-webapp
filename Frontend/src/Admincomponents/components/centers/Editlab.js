@@ -18,7 +18,7 @@ const Editlab = () => {
   
   useEffect(()=> {
     axios
-    .get("http://localhost:8080/managelabs")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managelabs`)
     .then((res) => {
       res.data.map((item) => {
         if(item.lab_id === parseInt(id)){
@@ -51,7 +51,7 @@ const Editlab = () => {
     event.preventDefault();
  
     axios
-      .post("http://localhost:8080/managelabs", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managelabs`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while updating lab. Please try again filling all the fields');

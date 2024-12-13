@@ -27,7 +27,7 @@ const Myaccount = () => {
     if(values.password === values.confirmpassword){
       // console.log("Passwords matched");
       axios
-      .post(`http://localhost:8080/patients`, values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`, values)
       .then((res) => {
         alert("Password updated successfully");
         window.location.reload(false);

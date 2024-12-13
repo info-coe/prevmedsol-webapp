@@ -34,7 +34,7 @@ const Addpackage = () => {
     console.log(values);
     event.preventDefault();
     axios
-      .post("http://localhost:8080/addpackage", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/addpackage`, values)
       .then((res) => {
         if (res.data === "Error") {
           alert(

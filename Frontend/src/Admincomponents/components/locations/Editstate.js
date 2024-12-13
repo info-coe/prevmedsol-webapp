@@ -13,7 +13,7 @@ const Editstate = () => {
 
   useEffect(()=> {
     axios
-    .get("http://localhost:8080/location")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/location`)
     .then((res) => {
       res.data.map((item) => {
         if(item.location_id === parseInt(id)){
@@ -41,7 +41,7 @@ const Editstate = () => {
     console.log(values);
     event.preventDefault();
        axios
-      .post("http://localhost:8080/locations", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/locations`, values)
       .then((res) => {
         if (res.data === "Error") {
           alert(

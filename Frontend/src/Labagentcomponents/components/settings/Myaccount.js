@@ -26,7 +26,7 @@ const Labagentaccount = () => {
     e.preventDefault();
     if(values.password === values.confirmpassword){
       axios
-      .post(`http://localhost:8080/labagents`, values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/labagents`, values)
       .then((res) => {
         console.log(res);
         alert("Password updated successfully");

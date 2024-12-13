@@ -32,7 +32,7 @@ export default function Emailverification() {
         setIsError(false);
   
         axios
-        .post("http://localhost:8080/register", values)
+        .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/register`, values)
         .then((res) => {
           if(res.data === "Error"){
             alert('User Registration Failed');

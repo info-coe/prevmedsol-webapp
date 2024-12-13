@@ -15,7 +15,7 @@ function Doctorappointment() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/patientappointment")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patientappointment`)
       .then((res) => {
         // Extract patient information
         res.data.data2.map((item1) => {

@@ -23,7 +23,7 @@ const Editpatient = () => {
 
   useEffect(()=> {
     axios
-    .get("http://localhost:8080/patients")
+    .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`)
     .then((res) => {
       res.data.map((item) => {
         if(item.patient_id === parseInt(id)){
@@ -77,7 +77,7 @@ const Editpatient = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
      axios
-      .post("http://localhost:8080/patients", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`, values)
       .then((res) => {
         if(res.data === "Error"){
           alert('Error while Updating patient. Please try again filling all the fields');

@@ -56,7 +56,7 @@ const Lab = () => {
 
     if (usr_input === captchacheck) {
       axios
-      .post("http://localhost:8080/lab", values)
+      .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/lab`, values)
         .then((res) => {
           if (res.data !== "Fail"  && res.data !== "Error") {
             const data = res.data;

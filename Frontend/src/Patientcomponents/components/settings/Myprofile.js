@@ -43,7 +43,7 @@ function Myprofile() {
     
       useEffect(() => {
         axios
-          .get("http://localhost:8080/patients")
+          .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`)
           .then((res) => {
             res.data.map((item)=>{
               if((user.firstname+" "+user.lastname) === (item.firstname+" "+item.lastname)){
@@ -86,7 +86,7 @@ function Myprofile() {
       const handleSave = (e) => {
         e.preventDefault();
         axios
-          .post(`http://localhost:8080/patients`, values)
+          .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/patients`, values)
           .then((res) => {
             console.log(res);
             window.location.reload(false);

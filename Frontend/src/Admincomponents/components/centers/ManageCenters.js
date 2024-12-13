@@ -17,7 +17,7 @@ const Managecenters = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/managecenters")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managecenters`)
       .then((res) => {
         res.data.map((item) => {
           return setCenters((oldArray) => [...oldArray, item]);
@@ -43,7 +43,7 @@ const Managecenters = () => {
   const handleDelete = (index) => {
     const emailToDelete = centers[index].email;
 
-    axios.delete(`http://localhost:8080/managecenters`, { data: { email: emailToDelete } })
+    axios.delete(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managecenters`, { data: { email: emailToDelete } })
         .then((res) => {
             console.log(res);
             window.location.reload(false);

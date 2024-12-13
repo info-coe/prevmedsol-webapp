@@ -24,7 +24,7 @@ function Adminprofile() {
     
       useEffect(() => {
         axios
-          .get("http://localhost:8080/admin")
+          .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/admin`)
           .then((res) => {
             // console.log(res.data);
             res.data.map((item)=>{
@@ -84,7 +84,7 @@ function Adminprofile() {
         e.preventDefault();
         // console.log(values)
         axios
-          .post(`http://localhost:8080/adminprofile`, values)
+          .post(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/adminprofile`, values)
           .then((res) => {
             console.log(res);
             window.location.reload(false);

@@ -60,7 +60,7 @@ const PhysicalExam2 = () => {
   });
 
   const handleSave = () => {
-    const serverUrl = 'http://localhost:8080/physicalexam2';
+    const serverUrl = `${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/physicalexam2`;
 
     const data = {
       accordionContents: { ...accordionContents },

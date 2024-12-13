@@ -16,7 +16,7 @@ const Managepackage = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/packages")
+      .get(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/packages`)
       .then((res) => {
         res.data.map((item) => {
           return setPackages((oldArray) => [...oldArray, item]);
@@ -63,7 +63,7 @@ const Managepackage = () => {
   const handleDelete = (index) => {
     const packageToDelete = packages[index].packagename;
 
-    axios.delete(`http://localhost:8080/managepackages`, { data: { packagename: packageToDelete } })
+    axios.delete(`${process.env.REACT_APP_HOST}${process.env.REACT_APP_BACKEND_PORT}/managepackages`, { data: { packagename: packageToDelete } })
         .then((res) => {
             console.log(res);
             window.location.reload(false);
